@@ -98,7 +98,10 @@ function list(){
  const so={tr:(a,b)=>(b.r*10+b.pf)-(a.r*10+a.pf),dl:(a,b)=>pc(b)-pc(a),rt:(a,b)=>b.r-a.r,nw:(a,b)=>b.id-a.id,lh:(a,b)=>a.p-b.p,hl:(a,b)=>b.p-a.p};
  return r.sort(so[s]);
 }
-function card(p){return `<div class="cd"><div class="im" onclick="show(${p.id})">${p.e}</div><div class="nm" onclick="show(${p.id})">${p.n}</div>
+function card(p){return `<div class="cd">
+<div class="im" onclick="show(${p.id})">
+  <img src="${p.img}" alt="${p.n}">
+</div>${p.e}</div><div class="nm" onclick="show(${p.id})">${p.n}</div>
 <div class="pr">${f(p.p)} <s>${f(p.o)}</s> <span class="bd">${pc(p)}% off</span></div>
 <div class="mu">⭐ ${p.r}${p.ram!="-"?" · "+p.ram+" | "+p.st:" · "+p.b}</div>
 <div class="ac"><button onclick="cmp(${p.id})" aria-label="Compare">⚖️</button><button onclick="wl(${p.id})" aria-label="Wishlist">${W.includes(p.id)?"❤️":"♡"}</button><button onclick="q(${p.id},1)" aria-label="Add to cart">🛒</button></div></div>`}
