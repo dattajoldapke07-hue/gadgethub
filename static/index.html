@@ -1,1 +1,185 @@
-
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GadgetHub</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f3f1ec;--cd:#fff;--tx:#1d1f24;--mu:#6c7078;--ac:#0b6e4f;--ac2:#e8f3ee;--bd:#dcd9d1;--gn:#0b7a3e;--rd:#c8203f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14161a;--cd:#1e2127;--tx:#eceae4;--mu:#9aa0aa;--ac:#4cc38a;--ac2:#1d2e27;--bd:#2f333b;--gn:#4cc38a;--rd:#ff6b86}}
+:root[data-theme="dark"]{--bg:#14161a;--cd:#1e2127;--tx:#eceae4;--mu:#9aa0aa;--ac:#4cc38a;--ac2:#1d2e27;--bd:#2f333b;--gn:#4cc38a;--rd:#ff6b86}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 "Trebuchet MS",Verdana,sans-serif;min-height:100%}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--bd);background:var(--cd);border-radius:8px;padding:6px 10px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 12px;border-bottom:1px solid var(--bd)}
+.row{display:flex;gap:6px;align-items:center}
+.logo{font:700 20px Georgia,serif;color:var(--ac);margin-right:auto}
+.ib{position:relative;padding:6px 8px}
+.ib i{position:absolute;top:-6px;right:-4px;background:var(--ac);color:var(--bg);font:700 11px sans-serif;border-radius:9px;padding:0 5px;font-style:normal}
+#q{width:100%;margin-top:8px;padding:10px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--cd)}
+main{padding:12px;max-width:1000px;margin:auto}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px}
+.chip{white-space:nowrap;border-radius:20px}
+.chip.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.fl{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.fl select{flex:1;min-width:110px;padding:7px;border-radius:8px;border:1px solid var(--bd);background:var(--cd)}
+.mu{color:var(--mu);font-size:13px}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.cd{background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:4px}
+.im{font-size:44px;text-align:center;background:var(--ac2);border-radius:8px;padding:10px;cursor:pointer}
+.nm{font-weight:700;cursor:pointer}
+s{color:var(--mu);font-size:13px}
+.pr{font-weight:700}
+.bd{color:var(--gn);font-size:12px;font-weight:700}
+.ac{display:flex;gap:4px;margin-top:auto;padding-top:6px}
+.ac button{flex:1;padding:5px 0}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:20;align-items:flex-end;justify-content:center}
+.ov.on{display:flex}
+.sh{background:var(--bg);width:100%;max-width:640px;max-height:90%;overflow-y:auto;border-radius:16px 16px 0 0;padding:14px 14px calc(18px + env(safe-area-inset-bottom,0px))}
+.x{float:right}
+h3{margin:4px 0 8px;font-family:Georgia,serif}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border-bottom:1px solid var(--bd);padding:6px 4px;text-align:left;vertical-align:top}
+.sc{overflow-x:auto}
+.bar{display:flex;align-items:flex-end;gap:10px;height:70px;margin:6px 0}
+.bar div{flex:1;background:var(--ac);border-radius:4px 4px 0 0;color:var(--bg);font-size:11px;text-align:center}
+.it{display:flex;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)}
+.it>div{flex:1}
+.win{background:var(--ac2);border-radius:8px;padding:10px;margin:8px 0}
+.big{width:100%;background:var(--ac);color:var(--bg);border-color:var(--ac);padding:10px;margin-top:8px;font-weight:700}
+label{display:block;margin:8px 0 2px;font-weight:700}
+.fs select{width:100%;padding:8px;border-radius:8px;border:1px solid var(--bd);background:var(--cd)}
+#ts{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 14px;border-radius:20px;z-index:30;display:none;font-size:13px}
+#ts.on{display:block}
+.nw{margin-top:18px;border-top:1px solid var(--bd);padding-top:8px}
+</style></head><body>
+<header>
+<div class="row"><span class="logo">GadgetHub</span>
+<button class="ib" onclick="op(vFind)" aria-label="Find my gadget">🎯</button>
+<button class="ib" onclick="op(vCmp)" aria-label="Compare">⚖️<i id="nc">0</i></button>
+<button class="ib" onclick="op(vWish)" aria-label="Wishlist">❤️<i id="nw">0</i></button>
+<button class="ib" onclick="op(vCart)" aria-label="Cart">🛒<i id="nk">0</i></button>
+<button class="ib" onclick="showOrders()" aria-label="Orders">📦</button><button class="ib" onclick="op(vAcc)" aria-label="Account">👤</button><button class="ib" onclick="dark()" aria-label="Dark mode">🌓</button></div>
+<input id="q" type="search" placeholder="Search: i5 laptop under 60000, best phone under 20000" oninput="render()">
+</header>
+<main>
+<div class="chips" id="ch"></div>
+<div class="fl"><select id="br" onchange="render()" aria-label="Brand"></select>
+<select id="mp" onchange="render()" aria-label="Max price"><option value="0">Any price</option><option value="2000">Up to ₹2,000</option><option value="10000">Up to ₹10,000</option><option value="20000">Up to ₹20,000</option><option value="30000">Up to ₹30,000</option><option value="60000">Up to ₹60,000</option><option value="100000">Up to ₹1,00,000</option></select>
+<select id="so" onchange="render()" aria-label="Sort"><option value="tr">🔥 Trending</option><option value="dl">💰 Best deals</option><option value="rt">⭐ Top rated</option><option value="nw">🆕 New arrivals</option><option value="lh">Price: Low → High</option><option value="hl">Price: High → Low</option></select></div>
+<div class="mu" id="cnt"></div>
+<div class="gr" id="gr"></div>
+<div class="nw"><b>📰 Latest Tech News</b>
+<p class="mu">• Nayi 5G smartphones ke launch ki list jald · • Laptop sales me AI PC ka trend · • Festive season me gadgets par bade offers</p></div>
+</main>
+<div class="ov" id="m" onclick="if(event.target==this)cl()"><div class="sh" id="sc"></div></div>
+<div id="ts"></div>
+<script>
+const $=id=>document.getElementById(id),f=n=>"₹"+n.toLocaleString("en-IN"),pc=p=>Math.round((p.o-p.p)/p.o*100);
+const ls={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const K=["id","n","c","b","p","o","r","ram","st","bat","dis","cam","cpu","e","u","pf","bt","cs"];
+let P=[];
+const CATS=["All","Mobiles","Laptops","Audio","Watches","Monitors","Gaming","Power","TVs"];
+const ICO={All:"🛍️",Mobiles:"📱",Laptops:"💻",Audio:"🎧",Watches:"⌚",Monitors:"🖥️",Gaming:"🎮",Power:"🔌",TVs:"📺"};
+let cat="All",W=ls.get("w",[]),C=ls.get("c",{}),AL=ls.get("a",[]),CM=[],V=null,FQ={u:"gaming",b:30000,c:"Any",pr:"pf",go:0};
+const byId=id=>P.find(p=>p.id==id);
+function t(m){const e=$("ts");e.textContent=m;e.classList.add("on");clearTimeout(t.i);t.i=setTimeout(()=>e.classList.remove("on"),1600)}
+function dark(){const d=document.documentElement,cur=d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");d.dataset.theme=cur=="dark"?"light":"dark"}
+function list(){
+ let q=$("q").value.toLowerCase(),max=+$("mp").value||1e9;
+ const m=q.match(/(?:under|below|within|<)\s*(\d+)/);
+ if(m){max=Math.min(max,+m[1]);q=q.replace(m[0]," ")}
+ q=q.replace(/earphones?|headphones?|earbuds?/g,"audio").replace(/phones?/g,"mobile").replace(/charger|powerbank|power bank/g,"power");
+ const stop=["best","top","good","for","a","the","in","with"];
+ const tk=q.split(/\s+/).filter(w=>w&&!stop.includes(w));
+ const b=$("br").value,s=$("so").value;
+ const r=P.filter(p=>(cat=="All"||p.c==cat)&&p.p<=max&&(!b||p.b==b)&&tk.every(w=>(p.n+" "+p.b+" "+p.c+" "+p.cpu+" "+p.ram+" "+p.st+" "+p.dis).toLowerCase().includes(w.replace(/s$/,""))));
+ const so={tr:(a,b)=>(b.r*10+b.pf)-(a.r*10+a.pf),dl:(a,b)=>pc(b)-pc(a),rt:(a,b)=>b.r-a.r,nw:(a,b)=>b.id-a.id,lh:(a,b)=>a.p-b.p,hl:(a,b)=>b.p-a.p};
+ return r.sort(so[s]);
+}
+function card(p){return `<div class="cd"><div class="im" onclick="show(${p.id})">${p.e}</div><div class="nm" onclick="show(${p.id})">${p.n}</div>
+<div class="pr">${f(p.p)} <s>${f(p.o)}</s> <span class="bd">${pc(p)}% off</span></div>
+<div class="mu">⭐ ${p.r}${p.ram!="-"?" · "+p.ram+" | "+p.st:" · "+p.b}</div>
+<div class="ac"><button onclick="cmp(${p.id})" aria-label="Compare">⚖️</button><button onclick="wl(${p.id})" aria-label="Wishlist">${W.includes(p.id)?"❤️":"♡"}</button><button onclick="q(${p.id},1)" aria-label="Add to cart">🛒</button></div></div>`}
+function render(){
+ $("ch").innerHTML=CATS.map(c=>`<button class="chip ${c==cat?"on":""}" onclick="cat='${c}';render()">${ICO[c]} ${c}</button>`).join("");
+ const r=list();$("cnt").textContent=r.length+" gadgets mile";
+ $("gr").innerHTML=r.map(card).join("")||"<p class='mu'>Koi gadget nahi mila. Search ya filter badal ke dekho.</p>";
+ $("nc").textContent=CM.length;$("nw").textContent=W.length;$("nk").textContent=Object.values(C).reduce((a,b)=>a+b,0);
+}
+function op(fn){V=fn;$("sc").innerHTML='<button class="x" onclick="cl()" aria-label="Close">✕</button>'+fn();$("m").classList.add("on")}
+function cl(){$("m").classList.remove("on");V=null}
+function refresh(){if(V&&$("m").classList.contains("on"))op(V)}
+function wl(id){W=W.includes(id)?W.filter(x=>x!=id):[...W,id];ls.set("w",W);t(W.includes(id)?"Wishlist me add hua":"Wishlist se hata diya");render();refresh()}
+function q(id,d){C[id]=(C[id]||0)+d;if(C[id]<=0)delete C[id];ls.set("c",C);if(d>0)t("Cart me add hua");render();refresh()}
+function cmp(id){if(CM.includes(id))CM=CM.filter(x=>x!=id);else if(CM.length>=4){t("Maximum 4 products compare ho sakte hain");return}else{CM.push(id);t("Compare list me add hua")}render();refresh()}
+function alr(id){AL=AL.includes(id)?AL.filter(x=>x!=id):[...AL,id];ls.set("a",AL);t(AL.includes(id)?"Price alert ON":"Price alert OFF");refresh()}
+function show(id){op(()=>vProd(id))}
+function vProd(id){const p=byId(id),h=[p.o,Math.round((p.o+p.p)/200)*100,p.p],mx=h[0];
+ const rows=[["Brand",p.b],["Display",p.dis],["Processor / Type",p.cpu],["RAM",p.ram],["Storage",p.st],["Camera",p.cam],["Battery",p.bat]].filter(x=>x[1]!="-");
+ const pro=[];if(p.bt>=4)pro.push("Battery lambi chalti hai");if(p.pf>=4)pro.push("Performance tez");if(p.cs>=4)pro.push("Camera accha");if(pc(p)>=20)pro.push("Achhi discount deal");
+ const con=[];if(p.pf&&p.pf<=2)con.push("Performance average");if(p.bt&&p.bt<=2)con.push("Battery weak");if(p.cs&&p.cs<=2)con.push("Camera basic");if(p.p>50000)con.push("Premium price");
+ return `<h3>${p.e} ${p.n}</h3><div class="pr">${f(p.p)} <s>${f(p.o)}</s> <span class="bd">${pc(p)}% off</span> · ⭐ ${p.r}/5</div>
+<div class="row" style="margin:8px 0"><button onclick="q(${p.id},1)">🛒 Add to Cart</button><button onclick="wl(${p.id})">${W.includes(p.id)?"❤️ Wishlisted":"♡ Wishlist"}</button><button onclick="cmp(${p.id})">${CM.includes(p.id)?"✓ In Compare":"⚖️ Compare"}</button></div>
+<button onclick="alr(${p.id})">${AL.includes(p.id)?"🔔 Price alert ON":"🔕 Notify me on price drop"}</button>
+<h3 style="margin-top:12px">Price history (demo)</h3><div class="bar">${h.map(v=>`<div style="height:${Math.round(v/mx*100)}%">${f(v)}</div>`).join("")}</div>
+<h3>Specifications</h3><table>${rows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join("")}</table>
+<h3 style="margin-top:12px">Reviews</h3><div>⭐⭐⭐⭐⭐ <span class="mu">Verified purchase</span><br>Paise ke hisaab se accha product hai.</div>
+<p class="mu">👍 ${pro.join(", ")||"Balanced product"}<br>👎 ${con.join(", ")||"Koi badi kami nahi"}</p>`}
+function vCmp(){
+ if(CM.length<2)return `<h3>⚖️ Compare</h3><p class="mu">Kam se kam 2 gadgets chuno (⚖️ button se). Abhi: ${CM.length}</p>`;
+ const L=CM.map(byId),mxP=Math.max(...L.map(p=>p.p)),mnP=Math.min(...L.map(p=>p.p)),mxR=Math.max(...L.map(p=>p.r));
+ const sc=p=>p.pf+p.bt+p.cs+p.r*2+(1-p.p/mxP)*3,w=L.reduce((a,b)=>sc(b)>sc(a)?b:a);
+ const why=[];if(w.p==mnP)why.push("sabse sasta");if(w.r==mxR)why.push("highest rating");["pf:best performance","bt:best battery","cs:best camera"].forEach(s=>{const[k,l]=s.split(":");if(w[k]>0&&w[k]==Math.max(...L.map(p=>p[k])))why.push(l)});
+ const R=[["Price",p=>f(p.p)],["Rating",p=>"⭐ "+p.r],["RAM",p=>p.ram],["Storage",p=>p.st],["Battery",p=>p.bat],["Display",p=>p.dis],["Camera",p=>p.cam],["Processor",p=>p.cpu]];
+ return `<h3>⚖️ Compare</h3><div class="sc"><table><tr><th></th>${L.map(p=>`<th>${p.e} ${p.n}<br><button onclick="cmp(${p.id})">Remove</button></th>`).join("")}</tr>${R.map(r=>`<tr><th>${r[0]}</th>${L.map(p=>`<td>${r[1](p)}</td>`).join("")}</tr>`).join("")}</table></div>
+<div class="win">🏆 <b>Better choice: ${w.n}</b><br>Reason: ${why.join(", ")||"overall best balance"}.</div>`}
+function vWish(){
+ if(!W.length)return `<h3>❤️ Wishlist</h3><p class="mu">Wishlist khali hai. Kisi gadget par ♡ dabao.</p>`;
+ return `<h3>❤️ Wishlist</h3>`+W.map(byId).map(p=>`<div class="it"><span style="font-size:28px">${p.e}</span><div><b>${p.n}</b><br>${f(p.p)} <s>${f(p.o)}</s> <span class="bd">${pc(p)}% price drop</span></div><button onclick="q(${p.id},1)">🛒</button><button onclick="wl(${p.id})">✕</button></div>`).join("")}
+function vCart(){
+ const e=Object.entries(C);if(!e.length)return `<h3>🛒 Cart</h3><p class="mu">Cart khali hai. Kuch gadgets add karo.</p>`;
+ let tot=0,sv=0;
+ const h=e.map(([id,n])=>{const p=byId(id);tot+=p.p*n;sv+=(p.o-p.p)*n;return `<div class="it"><span style="font-size:28px">${p.e}</span><div><b>${p.n}</b><br>${f(p.p)} × ${n}</div><button onclick="q(${p.id},-1)">−</button><b>${n}</b><button onclick="q(${p.id},1)">+</button><button onclick="rm(${p.id})">✕</button></div>`}).join("");
+ return `<h3>🛒 Cart</h3>${h}<p><b>Total: ${f(tot)}</b><br><span class="bd">Aapne bachaye: ${f(sv)}</span></p><button class="big" onclick="op(vCheck)">Proceed to Checkout (demo)</button>`}
+function co(){C={};ls.set("c",C);render();op(()=>`<h3>🎉 Order placed (demo)</h3><p>Ye demo checkout tha, koi payment nahi hui. Real payment backend ke saath Version 2 me judega.</p>`)}
+function sel(k,o){return `<select onchange="FQ.${k}=this.value">${o.map(x=>`<option value="${x[0]}" ${String(FQ[k])==String(x[0])?"selected":""}>${x[1]}</option>`).join("")}</select>`}
+function vFind(){
+ let out="";
+ if(FQ.go){
+  const r=P.filter(p=>p.p<=+FQ.b&&(FQ.c=="Any"||p.c==FQ.c)).map(p=>({p,s:(p.u.includes(FQ.u)?6:0)+p.r+2*p[FQ.pr]-p.p/+FQ.b})).sort((a,b)=>b.s-a.s).slice(0,3);
+  out=r.length?`<h3 style="margin-top:14px">🎯 Recommended for you</h3>`+r.map((x,i)=>`<div class="${i?"it":"win"}"><b>${x.p.e} ${x.p.n}</b> · ${f(x.p.p)} · ⭐ ${x.p.r}<br><span class="mu">${x.p.u.includes(FQ.u)?"Aapke use ke liye suitable":"Budget me best option"}</span><br><button onclick="show(${x.p.id})">Details</button></div>`).join(""):`<p class="mu">Is budget me koi gadget nahi mila. Budget badhao.</p>`}
+ return `<h3>🎯 Find My Gadget</h3><div class="fs"><label>Kis kaam ke liye?</label>${sel("u",[["gaming","Gaming"],["photo","Photography"],["college","College"],["office","Office"],["video","Video Editing"],["normal","Normal Use"]])}
+<label>Budget (max)</label>${sel("b",[[5000,"₹5,000"],[10000,"₹10,000"],[20000,"₹20,000"],[30000,"₹30,000"],[60000,"₹60,000"],[100000,"₹1,00,000"]])}
+<label>Category</label>${sel("c",[["Any","Any"],["Mobiles","Mobiles"],["Laptops","Laptops"],["Audio","Audio"],["Watches","Watches"],["Monitors","Monitors"]])}
+<label>Sabse zyada important</label>${sel("pr",[["pf","Performance"],["bt","Battery"],["cs","Camera"]])}</div>
+<button class="big" onclick="FQ.go=1;op(vFind)">Find Best Gadget</button>${out}`}
+function initUI(){const bs=[...new Set(P.map(p=>p.b))].sort();$("br").innerHTML='<option value="">All brands</option>'+bs.map(b=>`<option>${b}</option>`).join("");render()}
+</script><style>.f{width:100%;padding:9px;border-radius:8px;border:1px solid var(--bd);background:var(--cd);color:var(--tx)}</style>
+<script>
+const esc=s=>String(s).replace(/[&<>"']/g,c=>"&#"+c.charCodeAt(0)+";");
+let OL=[],ME=null;
+async function api(u,m,b){const r=await fetch(u,{method:m||"GET",headers:{"Content-Type":"application/json"},body:b?JSON.stringify(b):undefined});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||"Kuch gadbad hui");return d}
+function showAuth(m){const o=$("au");if(o)o.remove();const r=m=="reg",d=document.createElement("div");d.id="au";
+d.style.cssText="position:fixed;inset:0;z-index:25;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto";
+d.innerHTML=`<div style="width:100%;max-width:380px"><h3 style="font-size:26px;color:var(--ac)">GadgetHub</h3><p class="mu">${r?"Naya account banao":"Login karke shopping shuru karo"}</p><div class="fs">${r?'<label>Naam</label><input class="f" id="an" autocomplete="name">':""}<label>Email</label><input class="f" id="ae" type="email" autocomplete="email"><label>Password</label><input class="f" id="ap" type="password" autocomplete="${r?"new-password":"current-password"}"></div><button class="big" onclick="auth('${m}')">${r?"Create account":"Login"}</button><p class="mu" style="cursor:pointer" onclick="showAuth('${r?"login":"reg"}')">${r?"Account hai? Login karo":"Naya user? Register karo"}</p></div>`;
+document.body.appendChild(d)}
+async function auth(m){try{const b={email:$("ae").value,password:$("ap").value};if(m=="reg")b.name=$("an").value;await api("/api/"+(m=="reg"?"register":"login"),"POST",b);$("au").remove();boot()}catch(e){t(e.message)}}
+async function logout(){try{await api("/api/logout","POST")}catch(e){}location.reload()}
+async function boot(){let me;try{me=await api("/api/me")}catch(e){me={user:null}}
+if(!me.user){showAuth("login");return}
+ME=me.user;P=await api("/api/products");const s=await api("/api/state");W=s.wish;C=s.cart;AL=s.alerts;CM=[];initUI()}
+window.wl=async function(id){try{W=(await api("/api/wish/"+id,"POST")).wish;t(W.includes(id)?"Wishlist me add hua":"Wishlist se hata diya");render();refresh()}catch(e){t(e.message)}};
+window.q=async function(id,d){try{C=(await api("/api/cart","POST",{id:id,delta:d})).cart;if(d>0)t("Cart me add hua");render();refresh()}catch(e){t(e.message)}};
+window.rm=async function(id){try{C=(await api("/api/cart/"+id,"DELETE")).cart;render();refresh()}catch(e){t(e.message)}};
+window.alr=async function(id){try{AL=(await api("/api/alert/"+id,"POST")).alerts;t(AL.includes(id)?"Price alert ON":"Price alert OFF");refresh()}catch(e){t(e.message)}};
+function vCheck(){return `<h3>Checkout</h3><div class="fs"><label>Delivery address</label><textarea class="f" id="ad" rows="3"></textarea><label>Payment (demo)</label><select id="pm"><option>Cash on Delivery</option><option>UPI (demo)</option><option>Card (demo)</option></select></div><button class="big" onclick="place()">Place order</button>`}
+async function place(){const a=$("ad").value.trim();if(a.length<5){t("Delivery address likho");return}
+try{const o=await api("/api/checkout","POST",{address:a,payment:$("pm").value});C={};render();op(()=>`<h3>🎉 Order #${o.id} placed</h3><p>Total: ${f(o.total)}</p><button class="big" onclick="window.open('/bill/${o.id}','_blank')">🧾 View / Print Bill</button>`)}catch(e){t(e.message)}}
+async function showOrders(){try{OL=await api("/api/orders");op(vOrders)}catch(e){t(e.message)}}
+function vOrders(){return `<h3>📦 My Orders</h3>`+(OL.length?OL.map(o=>`<div class="it"><div><b>Order #${o.id}</b><br><span class="mu">${esc(o.created)}</span><br>${f(o.total)}</div><button onclick="window.open('/bill/${o.id}','_blank')">🧾 Bill</button></div>`).join(""):'<p class="mu">Abhi tak koi order nahi.</p>')}
+function vAcc(){return `<h3>👤 My Account</h3><p><b>${esc(ME.name)}</b><br>${esc(ME.email)}</p><button class="big" onclick="logout()">Logout</button>`}
+boot();
+</script>
+</body></html>
